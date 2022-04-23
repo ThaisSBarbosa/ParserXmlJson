@@ -30,9 +30,11 @@ public class Principal {
             var valor = m.group().replace("||\n||", "}");
             valor = valor.replace("||", ",");
             valor = valor.replace("|", "");
-            
+            /*
+             * valor = valor.replace("||", "\",");
+             * valor = valor.replace("|", "\"");
+             */
             inputXml = inputXml.replace(m.group(), valor);
-
         }
 
         inputXml = inputXml.replace(",\n\t,", "\n},");
@@ -41,5 +43,6 @@ public class Principal {
         inputXml = inputXml.replace(",\n||", "}");
 
         System.out.println(inputXml);
+
     }
 }
