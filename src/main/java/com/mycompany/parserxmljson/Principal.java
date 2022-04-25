@@ -28,12 +28,17 @@ public class Principal {
         Matcher m = p.matcher(inputXml);
         while (m.find()) {
             var valor = m.group().replace("||\n||", "}");
-            valor = valor.replace("||", ",");
-            valor = valor.replace("|", "");
-            /*
-             * valor = valor.replace("||", "\",");
-             * valor = valor.replace("|", "\"");
-             */
+
+            Pattern pValor = Pattern.compile("^[1-9]\\d*(\\.\\d+)?$");
+            Matcher mValor = pValor.matcher(valor.substring(1, valor.indexOf("||")));
+            if (mValor.find()) {
+                valor = valor.replace("||", ",");     //é número
+                valor = valor.replace("|", "");
+            } else {
+                valor = valor.replace("||", "\",");   //é texto
+                valor = valor.replace("|", "\"");
+            }
+
             inputXml = inputXml.replace(m.group(), valor);
         }
 
